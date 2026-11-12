@@ -1,0 +1,144 @@
+name: ai-truth-lab
+services:
+  ollama:
+    image: ollama/ollama:latest
+    restart: unless-stopped
+    gpus: all
+    environment:
+      OLLAMA_HOST: 0.0.0.0:11434
+      OLLAMA_NUM_PARALLEL: '1'
+      OLLAMA_MAX_LOADED_MODELS: '1'
+      OLLAMA_KEEP_ALIVE: '10m'
+    volumes:
+      - ollama-models:/root/.ollama
+    networks: [internal]
+    healthcheck:
+      test: ["CMD", "ollama", "list"]
+      interval: 30s
+      timeout: 15s
+      retries: 10
+      start_period: 60s
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    init: true
+    ports:
+      - "${HOST_PORT:-8088}:8080"
+    environment:
+      OLLAMA_URL: http://ollama:11434
+      OLLAMA_MODEL: ${OLLAMA_MODEL:-gemma3:4b}
+      PUBLIC_BASE_URL: ${PUBLIC_BASE_URL:-}
+      MAX_UPLOAD_MB: ${MAX_UPLOAD_MB:-50}
+      MAX_VIDEO_SECONDS: ${MAX_VIDEO_SECONDS:-20}
+      MAX_AUDIO_SECONDS: ${MAX_AUDIO_SECONDS:-30}
+      VLM_ENABLED: ${VLM_ENABLED:-true}
+      VISION_ENABLED: ${VISION_ENABLED:-false}
+      AUDIO_ENABLED: ${AUDIO_ENABLED:-false}
+      SYNTHETIC_ENABLED: ${SYNTHETIC_ENABLED:-false}
+      SYNTHETIC_URL: http://synthetic-video-detector:8093
+      SYNTHETIC_TIMEOUT_SECONDS: ${SYNTHETIC_TIMEOUT_SECONDS:-480}
+      VISION_URL: http://vision-detector:8091
+      AUDIO_URL: http://audio-detector:8092
+      VISION_THRESHOLD: ${VISION_THRESHOLD:-0.80}
+      DETECTOR_TIMEOUT_SECONDS: ${DETECTOR_TIMEOUT_SECONDS:-240}
+    volumes:
+      - ./data:/data
+    depends_on:
+      ollama:
+        condition: service_healthy
+    networks: [internal]
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8080/health', timeout=5)"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  vision-detector:
+    profiles: [vision]
+    build:
+      context: ./services/vision
+      args:
+        PYTORCH_BASE: ${PYTORCH_BASE:-nvcr.io/nvidia/pytorch:25.11-py3}
+    restart: unless-stopped
+    init: true
+    gpus: all
+    environment:
+      VISION_MODEL: ${VISION_MODEL:-ms_eff_gcvit_b0}
+      VISION_DATASET: ${VISION_DATASET:-celeb_df_v2}
+      HF_HOME: /models/huggingface
+      TORCH_HOME: /models/torch
+      YOLO_CONFIG_DIR: /models/ultralytics
+      MPLCONFIGDIR: /tmp/matplotlib
+    volumes:
+      - ./data:/data:ro
+      - detector-models:/models
+    networks: [internal]
+    ipc: private
+    shm_size: '1gb'
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8091/health', timeout=5)"]
+      interval: 30s
+      retries: 5
+      start_period: 120s
+    # No external ports: called only by API container.
+
+  audio-detector:
+    profiles: [audio]
+    build:
+      context: ./services/audio
+      args:
+        PYTORCH_BASE: ${PYTORCH_BASE:-nvcr.io/nvidia/pytorch:25.11-py3}
+    restart: unless-stopped
+    init: true
+    gpus: all
+    environment:
+      AASIST_REPO: /opt/aasist
+      AASIST_CHECKPOINT: /opt/aasist/models/weights/AASIST.pth
+    volumes:
+      - ./data:/data:ro
+    networks: [internal]
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8092/health', timeout=5)"]
+      interval: 30s
+      retries: 5
+      start_period: 120s
+
+  synthetic-video-detector:
+    profiles: [synthetic]
+    build:
+      context: ./services/synthetic
+      args:
+        PYTORCH_BASE: ${PYTORCH_BASE:-nvcr.io/nvidia/pytorch:25.11-py3}
+    restart: unless-stopped
+    init: true
+    gpus: all
+    environment:
+      STALL_DIR: /opt/stall
+      DINO_V3_REPO_DIR: /opt/dinov3
+      DINO_V3_WEIGHTS: /models/dinov3_vitl16_pretrain_lvd1689m-8aa4cbdd.pth
+      STALL_PARAMS: /opt/stall/precomputed/stall_params_vatex_dino_v3.npz
+      STALL_MAX_WINDOWS: ${STALL_MAX_WINDOWS:-3}
+      STALL_FRAME_BATCH: ${STALL_FRAME_BATCH:-4}
+      STALL_WARNING_THRESHOLD: ${STALL_WARNING_THRESHOLD:-0.75}
+    volumes:
+      - ./data:/data:ro
+      - ./models/dinov3:/models:ro
+    networks: [internal]
+    shm_size: '1gb'
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8093/health',timeout=5)"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 120s
+    # Internal service only: never publish detector ports.
+
+networks:
+  internal:
+    driver: bridge
+volumes:
+  ollama-models:
+  detector-models:

@@ -1,0 +1,9 @@
+.env
+data/*
+!data/.gitkeep
+__pycache__/
+*.pyc
+.pytest_cache/
+
+models/dinov3/*
+!models/dinov3/.gitkeep

@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>AI Truth Lab · DGX Spark</title>
+<style>
+:root{font-family:Inter,system-ui,-apple-system,"Noto Sans TC",sans-serif;background:#0a1020;color:#e7eefb;color-scheme:dark}*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 40% -10%,#203759,#0a1020 58%);min-height:100vh}header{display:flex;align-items:center;justify-content:space-between;padding:20px clamp(20px,5vw,80px);border-bottom:1px solid #23314a}header .logo{letter-spacing:.15em;font-size:20px;font-weight:800}header .dot{display:inline-block;width:10px;height:10px;border-radius:50%;background:#62ffbc;margin-right:12px;box-shadow:0 0 20px #62ffbc80}header small{color:#8ea7c8;font-size:12px}main{padding:36px clamp(20px,5vw,80px) 80px;max-width:1500px;margin:auto}h1{font-size:clamp(30px,4vw,52px);line-height:1.13;letter-spacing:-.035em;margin:4px 0 10px}.sub{color:#a1b3cd;line-height:1.65;margin:0 0 25px}.layout{display:grid;grid-template-columns:minmax(0,1.75fr) minmax(320px,.9fr);gap:20px}.panel{background:#111c30c9;border:1px solid #2d405d;border-radius:18px;padding:22px;min-width:0}.panel h2{font-size:16px;font-weight:700;margin:0 0 15px}.eyebrow{font-size:11px;letter-spacing:.15em;color:#6af1ca;text-transform:uppercase;font-weight:750;margin-bottom:13px}.stage{min-height:260px;border:1px dashed #476080;border-radius:13px;background:#081322;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;text-align:center;position:relative}.stage::before{content:'◎';font-size:50px;color:#456b8a;margin-bottom:10px}.stage.has-media::before{display:none}.stage img{max-width:100%;max-height:360px;object-fit:contain;border-radius:8px}.pick{background:#1d2c45;border:1px solid #425875;border-radius:10px;padding:11px 15px;color:white;cursor:pointer;display:inline-block;margin:14px 0}.pick:hover{border-color:#6af1ca}input[type=file]{display:none}button{background:#68e9bb;border:0;color:#09232a;padding:12px 20px;border-radius:10px;font-weight:800;cursor:pointer}button:disabled{opacity:.35;cursor:not-allowed}button:hover:not(:disabled){background:#97ffda}.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.hint{font-size:12px;line-height:1.6;color:#91a7c2}.result{padding:13px 0;border-top:1px solid #263850}.result b{display:block;margin-bottom:7px;font-size:13px}.result p{font-size:13px;line-height:1.65;color:#adc1dc;margin:0}.chip{display:inline-block;border:1px solid #3c5472;padding:5px 9px;border-radius:20px;color:#b9d8ef;font-size:11px}.warning{color:#ffd489}.progress{height:8px;border-radius:10px;background:#293951;overflow:hidden;margin:13px 0}.fill{height:100%;width:0;background:linear-gradient(90deg,#3bb3ff,#6af1ca);transition:width .3s}.timeline{display:flex;gap:10px;overflow:auto;padding-top:10px}.frame{min-width:130px;width:150px}.frame img{width:100%;height:88px;object-fit:cover;border-radius:6px}.frame div{color:#91a7c2;font-size:11px}.notice{padding:12px;border-radius:10px;background:#1b2d43;border:1px solid #37516d;color:#afcce7;font-size:12px;line-height:1.7;margin-top:15px}.desc{margin:12px 0 0;padding:0;list-style:none}.desc li{font-size:12px;color:#b6cce7;line-height:1.6;border-top:1px solid #2c4159;padding:10px 0}.actions a{display:inline-block;text-decoration:none;color:#68e9bb;border:1px solid #496b7b;padding:10px 14px;border-radius:8px;margin-right:8px;font-size:12px;margin-top:10px}.qr{width:145px;height:145px;background:white;padding:8px;border-radius:10px;display:block;margin-top:10px}pre{font-size:11px;word-break:break-all;white-space:pre-wrap;color:#a4c4db}.riskline{position:relative;height:24px;border:1px solid #39516a;background:#17283b;border-radius:8px;overflow:hidden;margin:14px 0 9px}.riskline .segment{position:absolute;top:0;height:100%;background:#d8813d95;border-left:2px solid #ffb779;border-right:2px solid #ffb779;cursor:pointer}.risklegend{font-size:11px;color:#adc6e0}.detector-row{padding:8px 0;border-bottom:1px solid #284057;font-size:12px;color:#c9d9e8;display:flex;gap:10px;justify-content:space-between}.detector-row small{color:#96adcb}.scores{max-height:250px;overflow:auto}.detector-score{font-variant-numeric:tabular-nums;font-weight:700;color:#e9c091}.detector-score.none{color:#8aa3bf}.mini-preview{width:46px;height:29px;object-fit:cover;vertical-align:middle;border-radius:4px;margin-right:6px}.interval{background:#332b31;border:1px solid #855f4a;color:#ffcca5;border-radius:8px;padding:9px;margin-top:8px;font-size:12px;cursor:pointer;display:block;width:100%;text-align:left}.hidden{display:none!important}@media(max-width:900px){.layout{grid-template-columns:1fr}header small{display:none}}@media(min-width:1000px){.stage{min-height:365px}}
+</style>
+</head>
+<body>
+<header><div class="logo"><span class="dot"></span>TRUTH LAB <span style="font-size:12px;font-weight:500;color:#92b1d5;letter-spacing:0">/ AI 真相實驗室</span></div><small>DGX SPARK · LOCAL FORENSICS · STAGE 3</small></header>
+<main>
+<div class="eyebrow">MEDIA FORENSICS · NOVEMBER 2026 DEMO</div>
+<h1>看見影音背後的證據。</h1>
+<p class="sub">上傳照片、短影片或音訊，檢查來源憑證，擷取畫面與聲音資訊，並由 DGX Spark 本地 AI 產生可追溯的初步分析摘要。</p>
+<div class="layout">
+<section class="panel">
+<div class="eyebrow">01 · MEDIA INPUT</div><h2>檔案與畫面分析</h2>
+<div id="stage" class="stage"><strong>將媒體檔案提交給 DGX Spark</strong><span class="hint">支援 JPG、PNG、MP4、MOV、WAV、MP3、M4A</span><label class="pick" for="file">選擇檔案</label><input id="file" type="file" accept=".jpg,.jpeg,.png,.mp4,.mov,.wav,.mp3,.m4a"/></div>
+<div class="row" style="margin-top:15px"><button id="start" disabled>開始本地鑑識分析 →</button><span class="hint" id="selected">尚未選取檔案</span></div>
+<div id="progbox" class="hidden" style="margin-top:24px"><div class="row"><span class="chip" id="state">分析中</span><span class="hint" id="step">排程任務</span></div><div class="progress"><div class="fill" id="bar"></div></div></div>
+<div id="framesbox" class="hidden" style="margin-top:24px"><h2>影片取樣時間軸</h2><div class="hint">下列為 VLM 使用的等距影格；下方鑑識時間軸來自獨立模型的逐影格輸出。</div><div id="frames" class="timeline"></div></div>
+<div id="riskbox" class="hidden" style="margin-top:24px"><h2>Deepfake 模型取樣時間軸</h2><div class="hint" id="risknote">模型偵測結果，非確認竄改範圍</div><div id="riskline" class="riskline"></div><div id="intervals"></div><div id="scores" class="scores"></div></div>
+<div id="syntheticbox" class="hidden" style="margin-top:24px"><h2>整段 AI 生成 · STALL</h2><p class="hint">2 秒取樣視窗；VATEX 真實影片參考百分位。高異常訊號不等於 AI 生成機率，也不是精確修改位置。</p><div id="syntheticwindows"></div></div>
+<div id="vlmbox" class="hidden" style="margin-top:20px"><h2>本地視覺語言模型描述</h2><ul class="desc" id="descriptions"></ul></div>
+</section>
+<aside class="panel">
+<div class="eyebrow">02 · EVIDENCE SUMMARY</div><h2>證據概覽</h2>
+<div class="result"><b>媒體雜湊 SHA-256</b><pre id="sha">等待檔案輸入</pre></div>
+<div class="result"><b>來源憑證 · C2PA</b><span class="chip" id="c2pastatus">尚未分析</span><p id="c2pa" style="margin-top:8px">將原始檔與嵌入式來源紀錄進行驗證。</p></div>
+<div class="result"><b>影像 Deepfake 偵測器</b><span class="chip" id="visionstatus">尚未分析</span><p id="visiondetail" style="margin-top:8px">模型尚未執行。</p></div>
+<div class="result"><b>整段 AI 生成 · STALL</b><span class="chip" id="syntheticstatus">尚未分析</span><p id="syntheticdetail" style="margin-top:8px">模型尚未執行；只用於影片。</p></div>
+<div class="result"><b>音訊 AASIST 反偽造</b><span class="chip" id="audiostatus">尚未分析</span><p id="audiodetail" style="margin-top:8px">模型尚未執行。</p></div>
+<div class="result"><b>初步結論</b><p id="conclusion" class="warning">目前沒有足夠證據做出真偽判定。</p></div>
+<div id="reports" class="hidden"><div class="eyebrow" style="margin-top:18px">03 · DOWNLOAD & SHARE</div><h2>鑑識摘要</h2><div class="actions"><a id="mdlink" target="_blank">下載 Markdown</a><a id="jsonlink" target="_blank">下載 JSON</a><a id="reportlink" target="_blank">開啟報告</a></div><img class="qr" id="qr" alt="報告 QR Code"/><p class="hint">手機須與 DGX Spark 位於可互通的內網。QR Code 會連至本機服務。</p></div>
+<div class="notice"><b>展示注意事項</b><br/>STALL 僅比較真實影片校準分布，並非真假機率；不能憑單一模型宣稱造假。C2PA 只能檢查來源紀錄與驗證狀態。視覺語言模型的描述不能視為 Deepfake 的科學鑑識證據。請勿依此單獨判定媒體內容真假。</div>
+</aside>
+</div>
+</main>
+<script>
+const $=id=>document.getElementById(id);
+let chosen=null, currentJob=null;
+$('file').addEventListener('change',e=>{chosen=e.target.files[0];$('start').disabled=!chosen;$('selected').textContent=chosen?`${chosen.name} · ${(chosen.size/1048576).toFixed(1)} MB`:'尚未選取檔案';});
+function el(tag,text){let node=document.createElement(tag);node.textContent=text;return node;}
+function mediaSrc(job,name){return `/api/jobs/${encodeURIComponent(job)}/files/${encodeURIComponent(name)}`;}
+function clearStage(){let stage=$('stage');stage.textContent='';stage.classList.add('has-media');}
+function displayFrames(job,items){$('frames').textContent='';if(!items.length)return;$('framesbox').classList.remove('hidden');for(const x of items){let wrap=el('div','');wrap.className='frame';let img=document.createElement('img');img.src=mediaSrc(job,x.filename);wrap.append(img,el('div',x.seconds===null?'圖片預覽':`取樣 ${x.seconds.toFixed(2)}s`));$('frames').appendChild(wrap);}}
+function showDetectors(job,r){
+ const d=r.detectors||{}, v=d.image_deepfake||{}, a=d.audio_antispoof||{}, s=d.synthetic_video||{};
+ $('syntheticstatus').textContent=s.status||'unknown';
+ $('syntheticdetail').textContent=s.reason||(s.status==='complete'?`模型 ${s.model}；成功計分 ${s.scored_windows}/${s.total_windows} 個 2 秒視窗，${s.review_windows} 個達到暫定複核門檻。非真假機率。`:'未取得全片生成模型分數。');
+ $('syntheticbox').classList.add('hidden');
+ $('syntheticwindows').textContent='';
+ if(s.windows?.length){$('syntheticbox').classList.remove('hidden');for(const x of s.windows){const row=el('div', '');row.className='detector-row';const label=`${Number(x.start_seconds).toFixed(2)}–${Number(x.end_seconds).toFixed(2)}s · ${x.status}`;row.append(el('span',label),el('span',x.status==='scored'?`異常 ${Number(x.synthetic_anomaly_signal).toFixed(4)}${x.review_flag?' · 待複核':''}`:(x.reason||'無法計分')));$('syntheticwindows').append(row);}}
+ $('visionstatus').textContent=v.status||'unknown';
+ $('audiostatus').textContent=a.status||'unknown';
+ $('visiondetail').textContent=v.reason||(v.status==='complete'?`模型 ${v.model} / ${v.dataset}；成功計分 ${v.scored}/${v.total} 個影格。≥ ${v.threshold} 為展示用待複核規則，不是真假機率。`:'未取得模型分數。');
+ $('audiodetail').textContent=a.reason||(a.status==='complete'?`模型 ${a.model}；分析 ${a.windows?.length||0} 個音訊窗，最大反偽造訊號 ${Number(a.max_attack_score).toFixed(3)}（未校準）。`:'未取得音訊模型分數。');
+ $('riskbox').classList.add('hidden');
+ if(r.media.kind!=='video'||!v.frames?.length)return;
+ $('riskbox').classList.remove('hidden');
+ $('risknote').textContent=`${v.model} · ${v.dataset} · 1 秒取樣間隔（取樣規則），警示門檻 ${v.threshold}，非定位真值`;
+ const duration=r.media.duration_seconds||20;
+ $('riskline').textContent=''; $('intervals').textContent=''; $('scores').textContent='';
+ for(const x of v.flagged_intervals||[]){const seg=el('div','');seg.className='segment';seg.style.left=(100*x.start_seconds/duration)+'%';seg.style.width=(100*(x.end_seconds-x.start_seconds)/duration)+'%';seg.title=`${x.start_seconds}–${x.end_seconds}s：分數 ${x.max_sample_score.toFixed(3)}`;seg.addEventListener('click',()=>seekVideo(x.start_seconds));$('riskline').append(seg);
+ const chip=el('button',`${x.start_seconds.toFixed(2)}–${x.end_seconds.toFixed(2)} 秒：需複核（分數 ${x.max_sample_score.toFixed(3)}）`);chip.className='interval';chip.onclick=()=>seekVideo(x.start_seconds);$('intervals').append(chip);}
+ if(!v.flagged_intervals?.length)$('intervals').append(el('p','沒有超過展示門檻的取樣點；不代表影片一定真實。'));
+ for(const x of v.frames){const row=el('div','');row.className='detector-row';
+ const left=el('div','');const img=document.createElement('img');img.className='mini-preview';img.src=mediaSrc(job,x.filename);img.loading='lazy';left.append(img,el('span',`${x.seconds===null?'照片':x.seconds.toFixed(2)+'s'} · ${x.status}`));
+ const score=el('span',x.score===null?'無法計分':Number(x.score).toFixed(4));score.className='detector-score'+(x.score===null?' none':'');row.append(left,score);$('scores').append(row);}
+ }
+function seekVideo(t){const video=$('stage').querySelector('video');if(video){video.currentTime=t;video.play().catch(()=>{});video.scrollIntoView({behavior:'smooth',block:'center'});}}
+function displayReport(job,r){$('sha').textContent=r.sha256;$('c2pastatus').textContent=r.c2pa.status;$('c2pa').textContent=r.c2pa.detail;$('conclusion').textContent=r.conclusion;showDetectors(job,r);
+ clearStage();const kind=r.media.kind;const media=document.createElement(kind==='video'?'video':kind==='audio'?'audio':'img');
+ if(kind==='video'){media.src=`/api/jobs/${job}/media`;media.controls=true;media.preload='metadata';media.playsInline=true;media.style.maxWidth='100%';media.style.maxHeight='360px';$('stage').appendChild(media);}
+ else if(kind==='audio'){media.src=`/api/jobs/${job}/media`;media.controls=true;media.style.width='100%';$('stage').appendChild(media);if(r.waveform){const img=document.createElement('img');img.src=mediaSrc(job,r.waveform);$('stage').appendChild(img);}}
+ else if(r.sample_frames?.length){media.src=mediaSrc(job,r.sample_frames[0].filename);$('stage').append(media);}else{$('stage').append(el('p','無法產生媒體預覽'));}
+ displayFrames(job,kind==='video'?r.sample_frames:[]);
+ const items=r.vlm.descriptions||[];$('descriptions').textContent='';for(const x of items){$('descriptions').append(el('li',(x.seconds===null?'圖片':`取樣 ${x.seconds}s`)+`：${x.text}`));}if(items.length)$('vlmbox').classList.remove('hidden');
+ $('mdlink').href=mediaSrc(job,'report.md');$('jsonlink').href=mediaSrc(job,'report.json');$('reportlink').href=`/r/${job}`;$('qr').src=`/api/jobs/${job}/qr`;$('reports').classList.remove('hidden');
+}
+function sleep(ms){return new Promise(r=>setTimeout(r,ms));}
+async function monitor(job){while(currentJob===job){let resp=await fetch(`/api/jobs/${job}`,{cache:'no-store'});if(!resp.ok)throw new Error('任務查詢失敗');let data=await resp.json();$('state').textContent=data.state;$('step').textContent=data.step;$('bar').style.width=(data.progress||0)+'%';if(data.state==='complete'){displayReport(job,data.report);break;}if(data.state==='failed')throw new Error(data.error||'任務失敗');await sleep(1500);}}
+$('start').addEventListener('click',async()=>{if(!chosen)return;$('start').disabled=true;$('reports').classList.add('hidden');$('vlmbox').classList.add('hidden');$('framesbox').classList.add('hidden');$('riskbox').classList.add('hidden');$('syntheticbox').classList.add('hidden');$('progbox').classList.remove('hidden');$('state').textContent='上傳中';$('step').textContent='正在傳送檔案';$('bar').style.width='1%';
+ try{let data=new FormData();data.append('file',chosen);let resp=await fetch('/api/analyze',{method:'POST',body:data});if(!resp.ok){let err=await resp.json().catch(()=>({}));throw new Error(err.detail||`HTTP ${resp.status}`);}let out=await resp.json();if(!out.job_id)throw new Error('伺服器未回傳任務編號');currentJob=out.job_id;await monitor(currentJob);}catch(e){$('state').textContent='失敗';$('step').textContent=e.message;}finally{$('start').disabled=false;}});
+</script>
+</body></html>
