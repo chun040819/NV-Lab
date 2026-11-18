@@ -5,6 +5,39 @@
 <title>AI Truth Lab · DGX Spark</title>
 <style>
 :root{font-family:Inter,system-ui,-apple-system,"Noto Sans TC",sans-serif;background:#0a1020;color:#e7eefb;color-scheme:dark}*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 40% -10%,#203759,#0a1020 58%);min-height:100vh}header{display:flex;align-items:center;justify-content:space-between;padding:20px clamp(20px,5vw,80px);border-bottom:1px solid #23314a}header .logo{letter-spacing:.15em;font-size:20px;font-weight:800}header .dot{display:inline-block;width:10px;height:10px;border-radius:50%;background:#62ffbc;margin-right:12px;box-shadow:0 0 20px #62ffbc80}header small{color:#8ea7c8;font-size:12px}main{padding:36px clamp(20px,5vw,80px) 80px;max-width:1500px;margin:auto}h1{font-size:clamp(30px,4vw,52px);line-height:1.13;letter-spacing:-.035em;margin:4px 0 10px}.sub{color:#a1b3cd;line-height:1.65;margin:0 0 25px}.layout{display:grid;grid-template-columns:minmax(0,1.75fr) minmax(320px,.9fr);gap:20px}.panel{background:#111c30c9;border:1px solid #2d405d;border-radius:18px;padding:22px;min-width:0}.panel h2{font-size:16px;font-weight:700;margin:0 0 15px}.eyebrow{font-size:11px;letter-spacing:.15em;color:#6af1ca;text-transform:uppercase;font-weight:750;margin-bottom:13px}.stage{min-height:260px;border:1px dashed #476080;border-radius:13px;background:#081322;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;text-align:center;position:relative}.stage::before{content:'◎';font-size:50px;color:#456b8a;margin-bottom:10px}.stage.has-media::before{display:none}.stage img{max-width:100%;max-height:360px;object-fit:contain;border-radius:8px}.pick{background:#1d2c45;border:1px solid #425875;border-radius:10px;padding:11px 15px;color:white;cursor:pointer;display:inline-block;margin:14px 0}.pick:hover{border-color:#6af1ca}input[type=file]{display:none}button{background:#68e9bb;border:0;color:#09232a;padding:12px 20px;border-radius:10px;font-weight:800;cursor:pointer}button:disabled{opacity:.35;cursor:not-allowed}button:hover:not(:disabled){background:#97ffda}.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.hint{font-size:12px;line-height:1.6;color:#91a7c2}.result{padding:13px 0;border-top:1px solid #263850}.result b{display:block;margin-bottom:7px;font-size:13px}.result p{font-size:13px;line-height:1.65;color:#adc1dc;margin:0}.chip{display:inline-block;border:1px solid #3c5472;padding:5px 9px;border-radius:20px;color:#b9d8ef;font-size:11px}.warning{color:#ffd489}.progress{height:8px;border-radius:10px;background:#293951;overflow:hidden;margin:13px 0}.fill{height:100%;width:0;background:linear-gradient(90deg,#3bb3ff,#6af1ca);transition:width .3s}.timeline{display:flex;gap:10px;overflow:auto;padding-top:10px}.frame{min-width:130px;width:150px}.frame img{width:100%;height:88px;object-fit:cover;border-radius:6px}.frame div{color:#91a7c2;font-size:11px}.notice{padding:12px;border-radius:10px;background:#1b2d43;border:1px solid #37516d;color:#afcce7;font-size:12px;line-height:1.7;margin-top:15px}.desc{margin:12px 0 0;padding:0;list-style:none}.desc li{font-size:12px;color:#b6cce7;line-height:1.6;border-top:1px solid #2c4159;padding:10px 0}.actions a{display:inline-block;text-decoration:none;color:#68e9bb;border:1px solid #496b7b;padding:10px 14px;border-radius:8px;margin-right:8px;font-size:12px;margin-top:10px}.qr{width:145px;height:145px;background:white;padding:8px;border-radius:10px;display:block;margin-top:10px}pre{font-size:11px;word-break:break-all;white-space:pre-wrap;color:#a4c4db}.riskline{position:relative;height:24px;border:1px solid #39516a;background:#17283b;border-radius:8px;overflow:hidden;margin:14px 0 9px}.riskline .segment{position:absolute;top:0;height:100%;background:#d8813d95;border-left:2px solid #ffb779;border-right:2px solid #ffb779;cursor:pointer}.risklegend{font-size:11px;color:#adc6e0}.detector-row{padding:8px 0;border-bottom:1px solid #284057;font-size:12px;color:#c9d9e8;display:flex;gap:10px;justify-content:space-between}.detector-row small{color:#96adcb}.scores{max-height:250px;overflow:auto}.detector-score{font-variant-numeric:tabular-nums;font-weight:700;color:#e9c091}.detector-score.none{color:#8aa3bf}.mini-preview{width:46px;height:29px;object-fit:cover;vertical-align:middle;border-radius:4px;margin-right:6px}.interval{background:#332b31;border:1px solid #855f4a;color:#ffcca5;border-radius:8px;padding:9px;margin-top:8px;font-size:12px;cursor:pointer;display:block;width:100%;text-align:left}.hidden{display:none!important}@media(max-width:900px){.layout{grid-template-columns:1fr}header small{display:none}}@media(min-width:1000px){.stage{min-height:365px}}
+.conclusion-card {
+  --accent: #a1b3cd;
+  margin-bottom: 20px;
+  padding: 18px clamp(18px, 3vw, 30px);
+  background: #14243a;
+  border: 1px solid #3c5472;
+  border-inline-start: 5px solid var(--accent);
+  border-radius: 14px;
+}
+.conclusion-card[data-state="complete"] {
+  --accent: #6af1ca;
+  background: #102e32;
+  border-color: #397269;
+  border-inline-start-color: var(--accent);
+}
+.conclusion-card[data-state="failed"] { --accent: #ffb0a3; }
+.conclusion-card h2 {
+  margin: 0 0 8px;
+  color: var(--accent);
+  font-size: 14px;
+}
+.conclusion-card p {
+  margin: 0;
+  color: #dce9f7;
+  font-size: 16px;
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+}
+.conclusion-card[data-state="complete"] p {
+  color: #f2fffc;
+  font-size: clamp(20px, 2.4vw, 28px);
+  font-weight: 750;
+}
 </style>
 </head>
 <body>
@@ -13,6 +46,10 @@
 <div class="eyebrow">MEDIA FORENSICS · NOVEMBER 2026 DEMO</div>
 <h1>看見影音背後的證據。</h1>
 <p class="sub">上傳照片、短影片或音訊，檢查來源憑證，擷取畫面與聲音資訊，並由 DGX Spark 本地 AI 產生可追溯的初步分析摘要。</p>
+<section id="conclusion-card" class="conclusion-card" aria-labelledby="conclusion-title">
+<h2 id="conclusion-title">初步結論</h2>
+<p id="conclusion" role="status" aria-atomic="true">完成辨識後，結論會顯示在這裡。</p>
+</section>
 <div class="layout">
 <section class="panel">
 <div class="eyebrow">01 · MEDIA INPUT</div><h2>檔案與畫面分析</h2>
@@ -31,7 +68,6 @@
 <div class="result"><b>影像 Deepfake 偵測器</b><span class="chip" id="visionstatus">尚未分析</span><p id="visiondetail" style="margin-top:8px">模型尚未執行。</p></div>
 <div class="result"><b>整段 AI 生成 · STALL</b><span class="chip" id="syntheticstatus">尚未分析</span><p id="syntheticdetail" style="margin-top:8px">模型尚未執行；只用於影片。</p></div>
 <div class="result"><b>音訊 AASIST 反偽造</b><span class="chip" id="audiostatus">尚未分析</span><p id="audiodetail" style="margin-top:8px">模型尚未執行。</p></div>
-<div class="result"><b>初步結論</b><p id="conclusion" class="warning">目前沒有足夠證據做出真偽判定。</p></div>
 <div id="reports" class="hidden"><div class="eyebrow" style="margin-top:18px">03 · DOWNLOAD & SHARE</div><h2>鑑識摘要</h2><div class="actions"><a id="mdlink" target="_blank">下載 Markdown</a><a id="jsonlink" target="_blank">下載 JSON</a><a id="reportlink" target="_blank">開啟報告</a></div><img class="qr" id="qr" alt="報告 QR Code"/><p class="hint">手機須與 DGX Spark 位於可互通的內網。QR Code 會連至本機服務。</p></div>
 <div class="notice"><b>展示注意事項</b><br/>STALL 僅比較真實影片校準分布，並非真假機率；不能憑單一模型宣稱造假。C2PA 只能檢查來源紀錄與驗證狀態。視覺語言模型的描述不能視為 Deepfake 的科學鑑識證據。請勿依此單獨判定媒體內容真假。</div>
 </aside>
@@ -70,7 +106,11 @@ function showDetectors(job,r){
  const score=el('span',x.score===null?'無法計分':Number(x.score).toFixed(4));score.className='detector-score'+(x.score===null?' none':'');row.append(left,score);$('scores').append(row);}
  }
 function seekVideo(t){const video=$('stage').querySelector('video');if(video){video.currentTime=t;video.play().catch(()=>{});video.scrollIntoView({behavior:'smooth',block:'center'});}}
-function displayReport(job,r){$('sha').textContent=r.sha256;$('c2pastatus').textContent=r.c2pa.status;$('c2pa').textContent=r.c2pa.detail;$('conclusion').textContent=r.conclusion;showDetectors(job,r);
+function showConclusion(state, message){
+ $('conclusion-card').dataset.state=state;
+ $('conclusion').textContent=message;
+}
+function displayReport(job,r){$('sha').textContent=r.sha256;$('c2pastatus').textContent=r.c2pa.status;$('c2pa').textContent=r.c2pa.detail;showConclusion('complete',r.conclusion);showDetectors(job,r);
  clearStage();const kind=r.media.kind;const media=document.createElement(kind==='video'?'video':kind==='audio'?'audio':'img');
  if(kind==='video'){media.src=`/api/jobs/${job}/media`;media.controls=true;media.preload='metadata';media.playsInline=true;media.style.maxWidth='100%';media.style.maxHeight='360px';$('stage').appendChild(media);}
  else if(kind==='audio'){media.src=`/api/jobs/${job}/media`;media.controls=true;media.style.width='100%';$('stage').appendChild(media);if(r.waveform){const img=document.createElement('img');img.src=mediaSrc(job,r.waveform);$('stage').appendChild(img);}}
@@ -81,7 +121,7 @@ function displayReport(job,r){$('sha').textContent=r.sha256;$('c2pastatus').text
 }
 function sleep(ms){return new Promise(r=>setTimeout(r,ms));}
 async function monitor(job){while(currentJob===job){let resp=await fetch(`/api/jobs/${job}`,{cache:'no-store'});if(!resp.ok)throw new Error('任務查詢失敗');let data=await resp.json();$('state').textContent=data.state;$('step').textContent=data.step;$('bar').style.width=(data.progress||0)+'%';if(data.state==='complete'){displayReport(job,data.report);break;}if(data.state==='failed')throw new Error(data.error||'任務失敗');await sleep(1500);}}
-$('start').addEventListener('click',async()=>{if(!chosen)return;$('start').disabled=true;$('reports').classList.add('hidden');$('vlmbox').classList.add('hidden');$('framesbox').classList.add('hidden');$('riskbox').classList.add('hidden');$('syntheticbox').classList.add('hidden');$('progbox').classList.remove('hidden');$('state').textContent='上傳中';$('step').textContent='正在傳送檔案';$('bar').style.width='1%';
- try{let data=new FormData();data.append('file',chosen);let resp=await fetch('/api/analyze',{method:'POST',body:data});if(!resp.ok){let err=await resp.json().catch(()=>({}));throw new Error(err.detail||`HTTP ${resp.status}`);}let out=await resp.json();if(!out.job_id)throw new Error('伺服器未回傳任務編號');currentJob=out.job_id;await monitor(currentJob);}catch(e){$('state').textContent='失敗';$('step').textContent=e.message;}finally{$('start').disabled=false;}});
+$('start').addEventListener('click',async()=>{if(!chosen)return;showConclusion('pending','正在分析媒體，請稍候。');$('start').disabled=true;$('reports').classList.add('hidden');$('vlmbox').classList.add('hidden');$('framesbox').classList.add('hidden');$('riskbox').classList.add('hidden');$('syntheticbox').classList.add('hidden');$('progbox').classList.remove('hidden');$('state').textContent='上傳中';$('step').textContent='正在傳送檔案';$('bar').style.width='1%';
+ try{let data=new FormData();data.append('file',chosen);let resp=await fetch('/api/analyze',{method:'POST',body:data});if(!resp.ok){let err=await resp.json().catch(()=>({}));throw new Error(err.detail||`HTTP ${resp.status}`);}let out=await resp.json();if(!out.job_id)throw new Error('伺服器未回傳任務編號');currentJob=out.job_id;await monitor(currentJob);}catch(e){showConclusion('failed','分析失敗：'+e.message);$('state').textContent='失敗';$('step').textContent=e.message;}finally{$('start').disabled=false;}});
 </script>
 </body></html>
